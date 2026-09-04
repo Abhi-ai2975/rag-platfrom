@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+
+sqlalchemy
+psycopg[binary]
+alembic
+
+qdrant-client
+
+pydantic
+pydantic-settings
+
+python-multipart
+
