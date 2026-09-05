@@ -40,10 +40,27 @@ class Document(Base):
         nullable=False,
     )
 
+    file_hash: Mapped[str] = mapped_column(
+        String(64),
+        nullable=False,
+        index=True,
+    )
+
     status: Mapped[str] = mapped_column(
         String(50),
         default="uploaded",
         nullable=False,
+    )
+
+    char_count: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+        nullable=False,
+    )
+
+    error_message: Mapped[str | None] = mapped_column(
+        String(1000),
+        nullable=True,
     )
 
     created_at: Mapped[datetime] = mapped_column(
@@ -52,7 +69,13 @@ class Document(Base):
         nullable=False,
     )
 
+    processed_at: Mapped[datetime | None] = mapped_column(
+        DateTime,
+        nullable=True,
+    )
+
     user = relationship("User")
+    
     chunks = relationship(
         "DocumentChunk",
         back_populates="document",
