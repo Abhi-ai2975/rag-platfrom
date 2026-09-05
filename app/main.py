@@ -5,12 +5,18 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.database import get_db
 from app.core.qdrant import qdrant_client
+from app.api.routes.documents import router as document_router
+
 
 app = FastAPI(
     title=settings.app_name,
-    version="0.1.0",
+    version="0.2.0",
 )
 
+app.include_router(
+    document_router,
+    prefix="/api/v1",
+)
 
 @app.get("/health")
 def health_check():
@@ -41,4 +47,4 @@ def qdrant_health():
 	    collection.name
 	    for collection in collections.collections
 	],
-}
+    }
